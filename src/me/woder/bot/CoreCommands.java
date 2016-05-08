@@ -37,10 +37,10 @@ public class CoreCommands {
                      Location loc = new Location(c.whandle.getWorld(), p.getLocation().getX(), p.getLocation().getY()-1, p.getLocation().getZ());
                      c.move.runPathing(l, loc, 100);
                    }else{
-                     //c.chat.sendMessage(username + ": couldn't find a player by that name");
+                     //c.gui.addtext(username + ": couldn't find a player by that name");
                    }
                   }else{
-                     //c.chat.sendMessage("Wrong amount of arguments provided!");
+                     //c.gui.addtext("Wrong amount of arguments provided!");
                } 
            };
        });
@@ -49,7 +49,7 @@ public class CoreCommands {
            @Override
         public void runCommand(Client c, String command, String[] args, String username) { 
                if(args.length > 0){
-                   c.chat.sendMessage("Looking up previous names for: " + ChatColor.stripColor(args[1]));
+                   c.gui.addtext("Looking up previous names for: " + ChatColor.stripColor(args[1]));
                    List<UUIDResponse> names = c.en.getNamesUUID(c.en.getUUIDName(ChatColor.stripColor(args[1])));
                    List<String> namli = new ArrayList<String>();
                    for(UUIDResponse s : names){
@@ -68,7 +68,7 @@ public class CoreCommands {
        commands.put("whereareyou", new Command() {
            @Override
         public void runCommand(Client c, String command, String[] args, String username) { 
-               c.chat.sendMessage("I am at: " + c.location.getX() + ", " + c.location.getY() + ", " + c.location.getZ());
+               c.gui.addtext("I am at: " + c.location.getX() + ", " + c.location.getY() + ", " + c.location.getZ());
            };
        });
        
@@ -77,9 +77,9 @@ public class CoreCommands {
         public void runCommand(Client c, String command, String[] args, String username) { 
               Block b = c.whandle.getWorld().getBlock(c.location.getBlockX(),c.location.getBlockY()-1,c.location.getBlockZ());
               if(b != null){
-                  c.chat.sendMessage("Block is: " + b.getBlockName());
+                  c.gui.addtext("Block is: " + b.getBlockName());
               }else{
-                  c.chat.sendMessage("It was null :(");
+                  c.gui.addtext("It was null :(");
               }
            };
        });
@@ -90,9 +90,9 @@ public class CoreCommands {
                if(args.length > 3){
                    Block b = c.whandle.getWorld().getBlock(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
                    if (b != null) {
-                       c.chat.sendMessage("Block is: " + b.getTypeId() + " and its meta data is: " + b.getMetaData());
+                       c.gui.addtext("Block is: " + b.getTypeId() + " and its meta data is: " + b.getMetaData());
                    } else {
-                       c.chat.sendMessage("Failed :(");
+                       c.gui.addtext("Failed :(");
                    } 
                }
            };
@@ -104,12 +104,12 @@ public class CoreCommands {
                if(args.length > 1){
                    if(!ChatColor.stripColor(args[1]).equalsIgnoreCase(c.username)){
                       Player p = c.en.findPlayer(ChatColor.stripColor(args[1]));
-                      c.chat.sendMessage("Holding: " + p.getHeldItem());
+                      c.gui.addtext("Holding: " + p.getHeldItem());
                    }else{
-                      c.chat.sendMessage("Can't use this command on self!");
+                      c.gui.addtext("Can't use this command on self!");
                    }
                  }else{
-                     c.chat.sendMessage("Wrong amount of arguments provided!");
+                     c.gui.addtext("Wrong amount of arguments provided!");
                  }
            };
        });
@@ -132,7 +132,7 @@ public class CoreCommands {
            @Override
         public void runCommand(Client c, String command, String[] args, String username) { 
                for(Slot s : c.invhandle.inventory){
-                   c.chat.sendMessage("Slot " + s.slotnum + " cotains: " + s.getCount() + " of item " + s.getId());
+                   c.gui.addtext("Slot " + s.slotnum + " cotains: " + s.getCount() + " of item " + s.getId());
                }
            };
        });
@@ -143,7 +143,7 @@ public class CoreCommands {
                 if(args.length > 2){
                    c.invhandle.creativeSetSlot(Short.parseShort(args[1]), new Slot(Short.parseShort(args[1]), Short.parseShort(args[2]),(byte)1,(short)0,(byte)0));
                 }else{
-                   c.chat.sendMessage("Wrong amount of arguments provided!"); 
+                   c.gui.addtext("Wrong amount of arguments provided!"); 
                 }
            };
        });
@@ -240,12 +240,12 @@ public class CoreCommands {
                    List<String> helpl = new ArrayList<String>();
                    String append = "";
                    if(args[1].equalsIgnoreCase("core")){
-                       c.chat.sendMessage("Hehehehehehe");
+                       c.gui.addtext("Hehehehehehe");
                    }else{               
                        pluginH(args, append, helpl, c);
                    }          
              }else{
-               c.chat.sendMessage("Command use: help <plugin name> **Note that \"core\" contains all core bot commands**");
+               c.gui.addtext("Command use: help <plugin name> **Note that \"core\" contains all core bot commands**");
              }
            };
            
@@ -269,7 +269,7 @@ public class CoreCommands {
                       append = "";
                    }
                }
-               c.chat.sendMessage("=====Help: " + ChatColor.stripColor(messages[1]) + "=====");
+               c.gui.addtext("=====Help: " + ChatColor.stripColor(messages[1]) + "=====");
                new DelayedMessageSender(c).delayedMessageSender(helpl, 1000, 1000); //The delay is there because a lot of servers have anti spam and even this delay isn't enough, increase as needed TODO: make configurab
            }
        });
